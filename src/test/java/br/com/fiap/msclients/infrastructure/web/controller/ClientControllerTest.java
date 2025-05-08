@@ -81,15 +81,54 @@ class ClientControllerTest {
                 .andExpect(jsonPath("$.id", is(1)));
     }
 
+//    @Test
+//    void shouldCreateClient() throws Exception {
+//        when(service.create(client)).thenReturn(client);
+//
+//        mockMvc.perform(post("/clients")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(objectMapper.writeValueAsString(client)))
+//                .andExpect(status().isCreated())
+//                .andExpect(jsonPath("$.name", is("Ana")));
+//    }
+
+//    @Test
+//    void shouldUpdateClient() throws Exception {
+//        when(service.update(1L, client)).thenReturn(client);
+//
+//        mockMvc.perform(put("/clients/1")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(objectMapper.writeValueAsString(client)))
+//                .andExpect(status().isOk())
+//                .andExpect(jsonPath("$.email", is("ana@email.com")));
+//    }
+//
+//    @Test
+//    void shouldDeleteClient() throws Exception {
+//        when(service.delete(1L)).thenReturn("Deleted");
+//
+//        mockMvc.perform(delete("/clients/1"))
+//                .andExpect(status().isOk())
+//                .andExpect(content().string("Deleted"));
+//    }
+    
+ // Ao final da classe ClientControllerTest:
+
+    @Test
+    void shouldValidateClientExists() throws Exception {
+        mockMvc.perform(get("/clients/validate/1"))
+                .andExpect(status().isOk());
+    }
+
     @Test
     void shouldCreateClient() throws Exception {
         when(service.create(client)).thenReturn(client);
 
         mockMvc.perform(post("/clients")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(client)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(client)))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.name", is("Ana")));
+                .andExpect(jsonPath("$.cpf", is("12345678900")));
     }
 
     @Test
@@ -97,18 +136,19 @@ class ClientControllerTest {
         when(service.update(1L, client)).thenReturn(client);
 
         mockMvc.perform(put("/clients/1")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(client)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(client)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.email", is("ana@email.com")));
+                .andExpect(jsonPath("$.name", is("Ana")));
     }
 
     @Test
     void shouldDeleteClient() throws Exception {
-        when(service.delete(1L)).thenReturn("Deleted");
+        when(service.delete(1L)).thenReturn("Client deleted successfully!");
 
         mockMvc.perform(delete("/clients/1"))
                 .andExpect(status().isOk())
-                .andExpect(content().string("Deleted"));
+                .andExpect(content().string("Client deleted successfully!"));
     }
+
 }

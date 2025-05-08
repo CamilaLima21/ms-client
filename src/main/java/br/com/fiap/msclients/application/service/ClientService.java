@@ -59,6 +59,13 @@ public class ClientService {
 				.orElseThrow(() -> new ResourceNotFoundException("Client not found"));
 		return mapper.toDto(mapper.toDomain(entity));
 	}
+	
+	//metodo para validar cliente existente
+	public void validateClientExists(long id) throws ResourceNotFoundException {
+		clientRepository.findById(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Cliente com ID " + id + " não encontrado."));
+	}
+
 
 	public ClientDto update(long id, ClientDto dto) throws ResourceNotFoundException {
 		ClientEntity entity = clientRepository.findById(id)

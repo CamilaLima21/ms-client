@@ -47,6 +47,14 @@ public class ClientController {
         ClientDto client = service.findByName(name);
         return ResponseEntity.ok(client);
     }
+    
+    //endpoint para validação de cliente
+    @GetMapping("/validate/{id}")
+    public ResponseEntity<Void> validateClientExists(@PathVariable long id) throws ResourceNotFoundException {
+        service.validateClientExists(id);
+        return ResponseEntity.ok().build();
+    }
+
 
     @PostMapping
     public ResponseEntity<ClientDto> create(@Valid @RequestBody ClientDto dto) throws ResourceNotFoundException {
